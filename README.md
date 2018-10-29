@@ -20,7 +20,8 @@ Install ROS Kinetic using following [link](http://wiki.ros.org/ROS/Tutorials/Ins
 #### Build Catkin Workspace
 Open terminal and run following command to clone this repository:
 ```
-git clone https://github.com/srane96/beginner_tutorials.git catkin_ws
+$ git clone https://github.com/srane96/beginner_tutorials.git catkin_ws
+$ cd catkin_ws
 ```
 #### Build the package
 Then build the package using following command
