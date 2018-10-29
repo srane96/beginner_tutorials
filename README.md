@@ -18,14 +18,9 @@ To run the given code, Following are the system requirements:
 Install ROS Kinetic using following [link](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
 
 #### Build Catkin Workspace
-Open terminal and run following command:
+Open terminal and run following command to clone this repository:
 ```
-$ mkdir -p ~/catkin_ws/
-$ cd ~/catkin_ws
-```
-Then clone this repository:
-```
-git clone https://github.com/srane96/beginner_tutorials.git
+git clone https://github.com/srane96/beginner_tutorials.git catkin_ws
 ```
 #### Build the package
 Then build the package using following command
