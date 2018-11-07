@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @file    talker.cpp
  * @author  Siddhesh Rane
- * @version 1.2
+ *
  * @brief publisher node;
  *
  * @section DESCRIPTION
@@ -38,6 +38,12 @@
 #include <sstream>
 #include "beginner_tutorials/strManipulator.h"
 extern std::string base_string = "Hello ROS";
+/**
+ * @brief function to manipulate base number using client request
+ * @param req int64 number requested by client
+ * @param res int64 result 10 times req number
+ * @return boolean
+ */
 bool manipulate(beginner_tutorials::strManipulator::Request &req,
                 beginner_tutorials::strManipulator::Response &res) {
   int number = req.num;
@@ -89,9 +95,9 @@ int main(int argc, char **argv) {
    * define a ServiceServer object to call manipulate
    */
   ros::ServiceServer server = nh.advertiseService("manipulate_service",
-                                                  manipulate);
-  /// loop at 10Hz rate
-  ros::Rate loop_rate(10);
+                                                 manipulate);
+  /// default loop at 10Hz rate
+  ros::Rate loop_rate(frq);
   /// initiate the count
   int count = 0;
   /// loop until node is shutdown
@@ -99,7 +105,7 @@ int main(int argc, char **argv) {
     /// create String message
     std_msgs::String msg;
     std::stringstream ss;
-    ss << "Hello ENPM808X ROS: " << count;
+    ss << base_string << count;
     /// store custom string to message data
     msg.data = ss.str();
     /// display the message
