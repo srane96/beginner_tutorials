@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @file    talker.cpp
  * @author  Siddhesh Rane
- *
+ * @version 1.2
  * @brief publisher node;
  *
  * @section DESCRIPTION
