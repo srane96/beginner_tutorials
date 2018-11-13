@@ -48,3 +48,6 @@ Open another terminal in the workspace and run following commands to start the s
 $ source devel/setup.bash
 $ rosservice call manipulate_service <integer>
 ```
+#### Stop the running node
+To stop the running nodes press CTRL+C
+
