@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  @file    listener.cpp
  *  @author  Siddhesh Rane
- *
+ *  @version 1.2
  *  @brief subscriber node;
  *
  *  @section DESCRIPTION
@@ -35,6 +35,8 @@
  */
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <cstdlib>
+#include "beginner_tutorials/strManipulator.h"
 /**
  * @brief A callback function to respond to messages
  * @param msg string published by publisher node

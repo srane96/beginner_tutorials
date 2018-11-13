@@ -1,0 +1,9 @@
+* Command
+$ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+
+* Output
+./src/beginner_tutorials/src/talker.cpp:47:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::strManipulator::Request &req  [runtime/references] [2]
+./src/beginner_tutorials/src/talker.cpp:48:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::strManipulator::Response &res  [runtime/references] [2]
+Done processing ./src/beginner_tutorials/src/talker.cpp
+Done processing ./src/beginner_tutorials/src/listener.cpp
+Total errors found: 2

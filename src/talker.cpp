@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @file    talker.cpp
  * @author  Siddhesh Rane
- *
+ * @version 1.2
  * @brief publisher node;
  *
  * @section DESCRIPTION
@@ -36,11 +36,54 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <sstream>
+#include "beginner_tutorials/strManipulator.h"
+extern std::string base_string = "Hello ROS";
+/**
+ * @brief function to manipulate base number using client request
+ * @param req int64 number requested by client
+ * @param res int64 result 10 times req number
+ * @return boolean
+ */
+bool manipulate(beginner_tutorials::strManipulator::Request &req,
+                beginner_tutorials::strManipulator::Response &res) {
+  int number = req.num;
+  std::string str;
+  ROS_INFO("Received number: %d", number);
+  if (number < 0)
+    ROS_ERROR("Please enter positive number");
+  if (number % 2 == 0)
+    str = "Even number entered";
+  else
+    str = "Odd number entered";
+  ROS_DEBUG("Result generated");
+  ROS_WARN("Warning: base_string will be modified");
+  base_string = str;
+  return true;
+}
 int main(int argc, char **argv) {
   /// initialize the ros node
   ros::init(argc, argv, "publisher");
   /// create an instance of NodeHandle
   ros::NodeHandle nh;
+  /// default frequency
+  int frq = 5;
+  /// check if user has entered argument
+  if (argc == 2) {
+    /// if argument is found change the frequency
+    if (atoi(argv[1]) < 0) {
+      /// set fatal log if rate is negative
+      ROS_FATAL("Fatal: Invalid rate");
+      return 1;
+    } else if (atoi(argv[1]) > 1000) {
+      /// set error log if rate is too high
+      ROS_ERROR("Rate too large");
+    }
+    frq = atoi(argv[1]);
+  } else {
+    /// if no argument is found, exit the program
+    ROS_FATAL("Fatal: No argument passed for frequency");
+    return 1;
+  }
   /**
    *  create a publisher node that publishes standard
    *  string messages to the chatter topic with queue
@@ -48,8 +91,13 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = nh.advertise < std_msgs::String
       > ("chatter_topic", 1000);
-  /// loop at 10Hz rate
-  ros::Rate loop_rate(10);
+  /**
+   * define a ServiceServer object to call manipulate
+   */
+  ros::ServiceServer server = nh.advertiseService("manipulate_service",
+                                                 manipulate);
+  /// default loop at 10Hz rate
+  ros::Rate loop_rate(frq);
   /// initiate the count
   int count = 0;
   /// loop until node is shutdown
@@ -57,7 +105,7 @@ int main(int argc, char **argv) {
     /// create String message
     std_msgs::String msg;
     std::stringstream ss;
-    ss << "Hello ENPM808X ROS: " << count;
+    ss << base_string << count;
     /// store custom string to message data
     msg.data = ss.str();
     /// display the message
