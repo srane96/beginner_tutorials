@@ -4,6 +4,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   message_generation
+  tf
 )
 add_service_files(
   FILES
@@ -21,3 +22,26 @@ add_dependencies(talker beginner_tutorials_gencpp)
 add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
 add_dependencies(listener beginner_tutorials_gencpp)
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+
+  add_rostest_gtest(
+  talkerTest
+  test/talkerTest.launch
+  test/talkerTest.cpp
+  test/main.cpp
+  )
+
+  target_link_libraries(
+  talkerTest
+  ${catkin_LIBRARIES}
+  )
+
+  add_dependencies(
+  talkerTest
+  talker
+  listener
+  ${catkin_EXPORTED_TARGETS}
+  )
+endif()

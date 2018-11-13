@@ -33,6 +33,7 @@
  * C++ program to implement publisher node that publishes
  * custom string messages on 'chatter_topic'
  */
+#include <tf/transform_broadcaster.h>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <sstream>
@@ -65,6 +66,12 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "publisher");
   /// create an instance of NodeHandle
   ros::NodeHandle nh;
+  /// create TransformBroadcaster object
+  static tf::TransformBroadcaster br;
+  /// create Transform object
+  tf::Transform transform;
+  /// create Quaternion object
+  tf::Quaternion q;
   /// default frequency
   int frq = 5;
   /// check if user has entered argument
@@ -116,8 +123,22 @@ int main(int argc, char **argv) {
      * ask ROS to execute all of the pending callbacks
      * from all of the node’s subscriptions
      */
+    auto x = cos(ros::Time::now().toSec());
+    auto y = sin(ros::Time::now().toSec());
+    auto z = 0.0;
+    auto yaw = 1.0;
+    /// set translational element of the transform
+    transform.setOrigin(tf::Vector3(x, y, z));
+    /// set row pitch and yaw angle
+    q.setRPY(0, 0, yaw);
+    /// set rotational element of the transform
+    transform.setRotation(q);
+    /// broadcast the transform information
+    br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    /// call all the callbacks waiting to be called
     ros::spinOnce();
-    /// wait until it's time for another iteration
+    /// sleep for specified amount of time
     loop_rate.sleep();
     ++count;
   }
