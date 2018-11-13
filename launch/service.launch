@@ -1,21 +1,36 @@
 <launch>
 	<arg
-		name="rate"
-		default="5"
+		name= "rate"
+		default= "5"
+	/>
+	<arg
+		name= "rosbagRecorder"
+		default= "false"	
+	/>
+	<arg
+		name= "bagName"
+		default= "talkerBag"
 	/>
 	<node
 		pkg = "beginner_tutorials"
 		name = "publisher"
 		type = "talker"
 		output = "screen"
-		args="$(arg rate)"
+		args= "$(arg rate)"
 	/>
 	<node
 		pkg = "beginner_tutorials"
 		name = "subscriber"
 		type = "listener"
 		output = "screen"	
-		launch-prefix="xterm -e"
+		launch-prefix= "xterm -e"
+	/>
+	<node
+		pkg= "rosbag"
+		name= "record_bag"
+		type= "record"
+		args = "-a -O $(find beginner_tutorials)/results/$(arg rosbagName)"
+if = "$(arg rosbagRecorder)"
 	/>
 </launch>
 

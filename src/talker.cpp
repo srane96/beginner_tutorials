@@ -35,6 +35,7 @@
  */
 #include <tf/transform_broadcaster.h>
 #include <ros/ros.h>
+#include <stdlib.h>
 #include <std_msgs/String.h>
 #include <sstream>
 #include "beginner_tutorials/strManipulator.h"
@@ -123,10 +124,10 @@ int main(int argc, char **argv) {
      * ask ROS to execute all of the pending callbacks
      * from all of the node’s subscriptions
      */
-    auto x = cos(ros::Time::now().toSec());
-    auto y = sin(ros::Time::now().toSec());
-    auto z = 0.0;
-    auto yaw = 1.0;
+    double x = cos(ros::Time::now().toSec());
+    double y = sin(ros::Time::now().toSec());
+    double z = 0.0;
+    double yaw = 1.0;
     /// set translational element of the transform
     transform.setOrigin(tf::Vector3(x, y, z));
     /// set row pitch and yaw angle
@@ -138,7 +139,7 @@ int main(int argc, char **argv) {
         tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
     /// call all the callbacks waiting to be called
     ros::spinOnce();
-    /// sleep for specified amount of time
+    /// se
     loop_rate.sleep();
     ++count;
   }
