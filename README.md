@@ -28,7 +28,7 @@ Open terminal and run following command to make workspace:
 $ mkdir -p ~/catkin_ws/src
 $ cd ~/catkin_ws
 $ cd ~/src
-$ git clone -b Week11_HW https://github.com/srane96/beginner_tutorials.git catkin_ws
+$ git clone -b Week11_HW https://github.com/srane96/beginner_tutorials.git beginner_tutorials
 $ cd ..
 ```
 
@@ -81,9 +81,9 @@ $ rosrun tf tf_echo world talk
 
 #### Running test
 Before running the test make sure that there are no nodes which are currently active. If there a running node, stop it by using CTRL+C.
-To run the gtest use following command
+Go to main workspace directory and run the gtest use following command
 ```
-$ roslaunch beginner_tutorials service.launch rosbagRecorder:=true
+$ catkin_make run_tests_beginner_tutorials
 ```
 This will generate a recorder.bag file in the results directory.
 
