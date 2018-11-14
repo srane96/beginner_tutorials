@@ -29,8 +29,8 @@
 		pkg= "rosbag"
 		name= "record_bag"
 		type= "record"
-		args = "-a -O $(find beginner_tutorials)/results/$(arg rosbagName)"
-if = "$(arg rosbagRecorder)"
+		args = "--duration=15 -a -O $(find beginner_tutorials)/results/recorder.bag"
+		if = "$(arg rosbagRecorder)"
 	/>
 </launch>
 
