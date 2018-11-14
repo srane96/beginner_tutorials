@@ -39,7 +39,11 @@
 #include <std_msgs/String.h>
 #include <sstream>
 #include "beginner_tutorials/strManipulator.h"
-extern std::string base_string = "Hello ROS";
+/// declare a global struct variable base_string
+struct global_string {
+  std::string content;
+} base_string;
+/// std::string base_string = "Hello ROS";
 /**
  * @brief function to manipulate base number using client request
  * @param req int64 number requested by client
@@ -59,10 +63,12 @@ bool manipulate(beginner_tutorials::strManipulator::Request &req,
     str = "Odd number entered";
   ROS_DEBUG("Result generated");
   ROS_WARN("Warning: base_string will be modified");
-  base_string = str;
+  base_string.content = str;
   return true;
 }
 int main(int argc, char **argv) {
+  /// initialize the base string
+  base_string.content = "Hello ROS";
   /// initialize the ros node
   ros::init(argc, argv, "publisher");
   /// create an instance of NodeHandle
@@ -89,8 +95,7 @@ int main(int argc, char **argv) {
     frq = atoi(argv[1]);
   } else {
     /// if no argument is found, exit the program
-    ROS_FATAL("Fatal: No argument passed for frequency");
-    return 1;
+    ROS_INFO("Fatal: No argument passed for frequency");
   }
   /**
    *  create a publisher node that publishes standard
@@ -113,7 +118,7 @@ int main(int argc, char **argv) {
     /// create String message
     std_msgs::String msg;
     std::stringstream ss;
-    ss << base_string << count;
+    ss << base_string.content << count;
     /// store custom string to message data
     msg.data = ss.str();
     /// display the message
