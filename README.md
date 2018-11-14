@@ -80,19 +80,19 @@ $ rosrun tf tf_echo world talk
 ```
 
 #### Running test
-Before running the test make sure that there are no nodes which are currently active. If there a running node, stop it by using CTRL+C.
-Go to main workspace directory and run the gtest use following command
+Before running the test make sure that there are no nodes which are currently active. If there is any running node, stop it by using CTRL+C.
+Go to the main workspace directory and run the gtest use following command
 ```
 $ catkin_make run_tests_beginner_tutorials
 ```
 This will generate a recorder.bag file in the results directory.
 
 #### Replaying the bag file
-First make sure all the nodes are stopped. Also make sure that roscore is active. Then in the workspace start the listener node only, using the following command.
+First make sure all the nodes are stopped. Also make sure that the roscore is active. Then in the workspace start the listener node only, using the following command
 ```
 $ rosrun beginner_tutorials listener
 ```
-Then go to results directory and run the following command
+Then go to the results directory and run the following command
 ```
 rosbag play recorder.bag
 ```
